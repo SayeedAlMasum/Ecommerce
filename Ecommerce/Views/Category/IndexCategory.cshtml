@@ -1,0 +1,37 @@
+﻿﻿@* Category/Index.cshtml *@
+@model CategoryViewModel
+
+<h2>Available Categories</h2>
+
+<!-- Search Box for User -->
+<div class="form-group">
+    <label for="search">Search Categories</label>
+    <input type="text" id="search" class="form-control" placeholder="Search for a Category..." onkeyup="filterCategories()" />
+</div>
+
+<!-- List of Available Categories -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+
+        </tr>
+    </thead>
+    <tbody id="CategoryTable">
+        @if (Model.Categories?.Any() ?? false)
+        {
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No Categorys available.</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿﻿@* Category/CreateCategory.cshtml *@
+@model CategoryViewModel
+
+<!-- Form to Add a New Category -->
+<h3>Add New Category</h3>
+<form method="post">
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <input type="text" id="Title" asp-for="Category.Title" class="form-control" required />
+        <span asp-validation-for="Category.Title" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+<hr />
+
+<!-- List of Available Categorys -->
+<h2>Available Categories</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Category Sl</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Categories?.Any() ?? false)
+        {
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>@item.CategoryId</td>
+                    <td>@item.Title</td>
+                   
+                    <td>
+                        <a asp-controller="Category" asp-action="EditCategory" asp-route-id="@item.CategoryId" class="btn btn-primary">Edit</a>
+                        <form method="post" asp-controller="Category" asp-action="Delete" asp-route-id="@item.CategoryId" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No Categories available.</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,14 @@
+﻿﻿@* Category/EditCategory.cshtml *@
+@model Category
+
+<h3>Edit Category</h3>
+<form asp-action="EditCategory" method="post">
+    <input type="hidden" asp-for="CategoryId" />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+ 
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
