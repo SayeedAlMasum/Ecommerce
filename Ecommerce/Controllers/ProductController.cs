@@ -106,5 +106,22 @@ namespace Ecommerce.Controllers
             _context.SaveChanges();
             return RedirectToAction("IndexProduct", new { categoryId = product.CategoryId });
         }
+        [HttpGet]
+        public IActionResult Search(string query)
+        {
+            // Pass the raw query into ViewData so you can display it if you want
+            ViewData["SearchQuery"] = query;
+
+            // Pull back all products whose Name or Description contains the query
+            var results = _context.Product
+                                  .Include(p => p.Category)
+                                  .Where(p =>
+                                      EF.Functions.Like(p.Name, $"%{query}%") ||
+                                      EF.Functions.Like(p.Description, $"%{query}%"))
+                                  .ToList();
+
+            // Re‑use the IndexProduct view to render the table:
+            return View("IndexProduct", results);
+        }
     }
 }
