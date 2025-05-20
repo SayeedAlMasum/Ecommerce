@@ -2,6 +2,7 @@
 using Ecommerce.Models;
 using Ecommerce.Models.Context;
 using Ecommerce.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace Ecommerce.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public IActionResult CreateProduct(int categoryId)
         {
             var model = new ProductViewModel

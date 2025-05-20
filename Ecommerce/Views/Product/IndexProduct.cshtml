@@ -3,15 +3,19 @@
 @{
     ViewData["Title"] = "Products";
     var categoryId = ViewBag.CategoryId;
+
 }
 
 <h2>Products</h2>
 
 @if (categoryId != null)
 {
-    <a asp-action="CreateProduct" asp-route-categoryId="@categoryId" class="btn btn-success mb-3">Add New Product</a>
+    @if(User.IsInRole("Admin"))
+    {
+        <a asp-action="CreateProduct" asp-route-categoryId="@categoryId" class="btn btn-success mb-3">Add New Product</a>
+    }
 }
-else
+    else
 {
     <p><em>Select a category to add a new product.</em></p>
 }

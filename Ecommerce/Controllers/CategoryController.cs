@@ -17,7 +17,7 @@ namespace Ecommerce.Controllers
             _ecommerceContext = ecommerceContext;
         }
 
-        [Authorize(Roles = "Admin,Teacher,Student")]
+        [Authorize(Roles = "Admin,Student")]
         public IActionResult IndexCategory()
         {
             var viewModel = new CategoryViewModel
