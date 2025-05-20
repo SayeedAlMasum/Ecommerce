@@ -1,6 +1,7 @@
 ﻿//ProductController.cs
 using Ecommerce.Models;
 using Ecommerce.Models.Context;
+using Ecommerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -16,34 +17,63 @@ namespace Ecommerce.Controllers
             _context = context;
         }
 
-        public IActionResult IndexProduct(int categoryId)
+        public IActionResult IndexProduct(int? categoryId)
         {
-            var products = _context.Product
-                                   .Where(p => p.CategoryId == categoryId)
-                                   .Include(p => p.Category)
-                                   .ToList();
+            var productsQuery = _context.Product.Include(p => p.Category).AsQueryable();
 
-            ViewBag.CategoryId = categoryId;
+            if (categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(p => p.CategoryId == categoryId.Value);
+                ViewBag.CategoryId = categoryId.Value;
+            }
+            else
+            {
+                ViewBag.CategoryId = null;
+            }
+
+            var products = productsQuery.ToList();
             return View(products);
         }
 
+
+        [HttpGet]
         public IActionResult CreateProduct(int categoryId)
         {
-            var product = new Product { CategoryId = categoryId };
-            return View(product);
+            var model = new ProductViewModel
+            {
+                CategoryId = categoryId,
+                Products = _context.Product
+                                   .Where(p => p.CategoryId == categoryId)
+                                   .ToList()
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult CreateProduct(Product product)
+        public IActionResult CreateProduct(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Product.Add(product);
+                var newProduct = new Product
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    Price = model.Price,
+                    ImageUrl = model.ImageUrl,
+                    CategoryId = model.CategoryId
+                };
+
+                _context.Product.Add(newProduct); // FIXED HERE
                 _context.SaveChanges();
-                return RedirectToAction("IndexProduct", new { categoryId = product.CategoryId });
+
+                return RedirectToAction("CreateProduct", new { categoryId = model.CategoryId }); // PASS categoryId
             }
 
-            return View(product);
+            // If model is invalid, return the same view with validation errors
+            model.Products = _context.Product
+                                     .Where(p => p.CategoryId == model.CategoryId)
+                                     .ToList();
+            return View(model);
         }
 
         public IActionResult EditProduct(int id)
@@ -63,6 +93,16 @@ namespace Ecommerce.Controllers
                 return RedirectToAction("IndexProduct", new { categoryId = product.CategoryId });
             }
             return View(product);
+        }
+
+        public IActionResult DeleteProduct(int id)
+        {
+            var product = _context.Product.Find(id);
+            if (product == null)
+                return NotFound();
+            _context.Product.Remove(product);
+            _context.SaveChanges();
+            return RedirectToAction("IndexProduct", new { categoryId = product.CategoryId });
         }
     }
 }
