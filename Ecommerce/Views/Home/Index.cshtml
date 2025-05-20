@@ -1,9 +1,24 @@
 ﻿@* Home/Index.cshtml *@
+@model List<Ecommerce.Models.Category>
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <button>Shop Now</button>
+<div class="row mt-4">
+    @foreach (var category in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h4 class="card-title">@category.Title</h4>
+
+                    <a class="btn btn-primary"
+                       href="@Url.Action("IndexProduct", "Product", new { categoryId = category.CategoryId })">
+                        View Products
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

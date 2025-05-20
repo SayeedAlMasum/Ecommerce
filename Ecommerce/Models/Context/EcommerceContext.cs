@@ -1,4 +1,5 @@
-﻿using System;
+﻿//EcommerceContext.cs
+using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Models.Context
@@ -12,5 +13,6 @@ namespace Ecommerce.Models.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<Product> Product { get; set; }
     }
 }

@@ -16,7 +16,7 @@
 </head>
 <body class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "landing-page" : "other-page")">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">
                     <i class="fa market"></i> Ecommerce
@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @* 
                         <li class="nav-item">
@@ -39,14 +39,14 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-controller="Category" asp-action="CreateCategory">CreateCategory</a>
+                                <a class="nav-link text-white" asp-controller="Category" asp-action="CreateCategory">AddCategory</a>
                             </li>
+
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Category" asp-action="IndexCategory">View Categories</a>
+                            <a class="nav-link text-white" asp-controller="Category" asp-action="IndexCategory">ViewCategory</a>
                         </li>
-
                     </ul>
 
                     <ul class="navbar-nav">
@@ -84,7 +84,7 @@
 
     <footer class="footer">
         <div class="container text-center">
-            &copy; 2025 SkillExchange | <a href="/Privacy" class="text-white">Privacy Policy</a>
+            &copy; 2025 Ecommerce | <a href="/Privacy" class="text-white">Privacy Policy</a>
         </div>
     </footer>
 
@@ -93,4 +93,4 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html>
+</html>  

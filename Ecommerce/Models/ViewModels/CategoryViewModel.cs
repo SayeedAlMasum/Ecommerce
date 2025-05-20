@@ -1,4 +1,5 @@
-﻿namespace Ecommerce.Models.ViewModels
+﻿//CategoryViewModel.cs
+namespace Ecommerce.Models.ViewModels
 {
     public class CategoryViewModel
     {

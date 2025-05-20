@@ -1,22 +1,63 @@
+/*Site.css*/
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #ffffff;
+    color: #000000;
 }
+
+a {
+    color: #FFD700; /* Yellow */
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #e5c100;
+        text-decoration: underline;
+    }
+
+.btn-primary {
+    color: #000000;
+    background-color: #FFD700;
+    border-color: #e5c100;
+}
+
+    .btn-primary:hover {
+        background-color: #e5c100;
+        border-color: #d4b000;
+        color: #000000;
+    }
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem #fff, 0 0 0 0.25rem #FFD700;
+}
+
+.footer {
+    background-color: #000000;
+    color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+    .footer a {
+        color: #FFD700;
+    }
