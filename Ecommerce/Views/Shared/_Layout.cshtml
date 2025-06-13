@@ -46,6 +46,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-controller="Category" asp-action="IndexCategory">ViewCategory</a>
                             </li>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Register" asp-action="IndexRegister">All Users</a>
+                                </li>
+                            }
+
                         }
                     </ul>
 

@@ -61,5 +61,13 @@ namespace Ecommerce.Controllers
             return RedirectToAction("CreateLogin", "Login");
         }
 
+        public IActionResult IndexRegister()
+        {
+            var users = _ecommerceContext.UserInfo.ToList();
+            return View(users);
+        }
+
+
+
     }
 }
